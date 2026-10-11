@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=390">
+	<title>aasemov-website</title>
+	<meta name="description" content="aasemov-website">
+
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="aasemov-website">
+	<meta property="og:description" content="aasemov-website">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="aasemov-website">
+	<meta name="twitter:description" content="aasemov-website">
+
+	<link rel="icon" href="./favicon.ico?v=4" sizes="any">
+	<link rel="icon" type="image/png" sizes="64x64" href="./assets/favicon-64.png?v=3">
+	<link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png?v=2">
+
+	<link rel="preload" href="./assets/hero-optimized.mp4" as="video" type="video/mp4">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..600&display=swap&subset=cyrillic,latin">
+
+	<style>
+		/* ---------- Шрифт Manrope ----------
+		   Основной источник — Google Fonts (ссылка выше).
+		   Локальные файлы ниже — запасной вариант, если Google недоступен. */
+
+		/* cyrillic */
+		@font-face {
+			font-family: "Manrope Local";
+			font-style: normal;
+			font-weight: 400 600;
+			font-display: swap;
+			src: url(./assets/f0e0d381.woff2) format("woff2");
+			unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+		}
+
+		/* latin */
+		@font-face {
+			font-family: "Manrope Local";
+			font-style: normal;
+			font-weight: 400 600;
+			font-display: swap;
+			src: url(./assets/732ccd61.woff2) format("woff2");
+			unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+		}
+
+		/* ---------- Базовые стили ---------- */
+
+		:root {
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-font-smoothing: inherit;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			min-height: 100%;
+			background: #F4F2F0;
+		}
+
+		body {
+			font-family: sans-serif;
+			font-size: 12px;
+		}
+
+		/*
+		 * Тексты: <p>/<h*> задают базовый шрифт (Inter), а вложенный <span> или <a>
+		 * — реальный шрифт. Такая пара сохранена намеренно: от неё зависит высота
+		 * строки, а значит и положение текста до пикселя.
+		 */
+		h1,
+		h2,
+		h3,
+		p {
+			margin: 0;
+			font-family: Inter, sans-serif;
+			font-weight: 400;
+			color: #000;
+		}
+
+		/* ---------- Страница ---------- */
+
+		.stage {
+			display: flex;
+			justify-content: center;
+			align-items: flex-start;
+			width: 100%;
+			min-height: 100vh;
+			overflow-x: hidden;
+			background: #F4F2F0;
+		}
+
+		.page {
+			position: relative;
+			width: 390px;
+			height: 1366px;
+			min-height: 100vh;
+			margin: 0 auto;
+			overflow: hidden;
+			overflow: clip;
+			background: #fff;
+		}
+
+		.page__bg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 390px;
+			height: 1437px;
+		}
+
+		/* ---------- Верхний блок: имя, описание, кнопки ---------- */
+
+		.intro {
+			position: absolute;
+			top: 240px;
+			left: 0;
+			right: 0;
+			height: 305px;
+		}
+
+		.intro__text {
+			position: absolute;
+			top: 50px;
+			left: 20px;
+			width: 350px;
+			height: 114px;
+		}
+
+		.username {
+			position: absolute;
+			top: 5px;
+			left: 53%;
+			transform: translateX(-50%);
+			white-space: pre;
+			font-size: 32px;
+			line-height: 38.4px;
+			text-align: center;
+		}
+
+		.username span {
+			font-family: "Manrope", "Manrope Local", sans-serif;
+			font-weight: 600;
+			letter-spacing: -1.92px;
+			color: #0b0b0b;
+		}
+
+		.bio {
+			position: absolute;
+			top: 53.72px;
+			left: 50%;
+			transform: translateX(-50%);
+			white-space: pre;
+			font-size: 18px;
+			line-height: 23.4px;
+			text-align: center;
+		}
+
+		.bio span {
+			font-family: "Manrope", "Manrope Local", sans-serif;
+			font-weight: 500;
+			letter-spacing: -0.3px;
+			color: #737373;
+		}
+
+		.btn {
+			position: absolute;
+			left: 21px;
+			display: block;
+			width: 350px;
+			height: 60px;
+			overflow: hidden;
+			border-radius: 8px;
+			text-decoration: none;
+		}
+
+		.btn--partner {
+			top: 154px;
+			background: #e3e3e3;
+		}
+
+		.btn--consult {
+			top: 226px;
+			background: #41b455;
+		}
+
+		.btn p {
+			position: absolute;
+			top: 49%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			white-space: pre;
+			font-size: 16px;
+			line-height: 19.2px;
+			text-align: center;
+		}
+
+		.btn span {
+			font-family: "Helvetica Neue";
+			font-weight: 500;
+			letter-spacing: 0;
+		}
+
+		.btn--partner span {
+			font-weight: 400;
+		}
+
+		.btn--consult span {
+			color: #fff;
+		}
+
+		/* ---------- Hero-видео, градиент, аватар ---------- */
+
+		.hero-video {
+			position: absolute;
+			top: -2px;
+			left: 0;
+			display: block;
+			width: 389px;
+			height: 242px;
+			object-fit: cover;
+		}
+
+		.hero-fade {
+			position: absolute;
+			top: 71px;
+			left: 0;
+			right: 0;
+			height: 169px;
+			background: linear-gradient(#fff0 0%, #f4f2f0 100%);
+		}
+
+		.avatar {
+			position: absolute;
+			top: 160px;
+			left: 135px;
+			width: 120px;
+			height: 120px;
+			overflow: hidden;
+			border-radius: 50%;
+		}
+
+		.avatar img {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+
+		.avatar::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border: 4px solid #f4f2f0;
+			border-radius: 50%;
+		}
+
+		.badge {
+			position: absolute;
+			top: 259px;
+			left: 181px;
+			display: block;
+			width: 30px;
+			height: 30px;
+		}
+
+		/* ---------- Сеть клиник ---------- */
+
+		.clinics {
+			position: absolute;
+			top: 558px;
+			left: 0;
+			width: 390px;
+			height: 793px;
+		}
+
+		.clinics__head {
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			right: 20px;
+			height: 14px;
+			overflow: hidden;
+		}
+
+		.clinics__title {
+			position: absolute;
+			top: 44%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			white-space: pre;
+			font-size: 12px;
+			line-height: 14.4px;
+			text-align: center;
+		}
+
+		.clinics__title span {
+			font-family: "Helvetica Neue";
+			letter-spacing: 1.2px;
+			color: #606060;
+		}
+
+		.locations {
+			position: absolute;
+			top: 54px;
+			left: 25px;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 18px;
+			width: 340px;
+		}
+
+		/* ---------- Карточка клиники ---------- */
+
+		.card {
+			position: relative;
+			flex: none;
+			width: 100%;
+			height: 227px;
+			overflow: hidden;
+			border-radius: 8px;
+			background: #f9f8f6;
+		}
+
+		.card::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border: 0.2px solid #adadad;
+			border-radius: inherit;
+			pointer-events: none;
+		}
+
+		.card__map {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: auto;
+			aspect-ratio: 2.19706;
+			border-radius: 8px 8px 0 0;
+		}
+
+		/* Невидимая ссылка на всю карточку (короткая ссылка 2ГИС) */
+		.card__link {
+			position: absolute;
+			inset: 0;
+		}
+
+		.card__info {
+			position: absolute;
+			top: 155px;
+			left: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 10px;
+			width: 340px;
+			padding: 14px 12px;
+			overflow: hidden;
+			border-radius: 0 0 8px 8px;
+			background: #f9f8f6;
+			box-shadow: 0 0.455154px 0.910308px #0000001a;
+			pointer-events: none; /* клик по пустому месту уходит на .card__link */
+		}
+
+		.card__details {
+			position: relative;
+			flex: none;
+			width: 209px;
+			height: 44px;
+		}
+
+		.card__name {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 113px;
+			height: 19px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			white-space: pre-wrap;
+			word-break: break-word;
+			overflow-wrap: break-word;
+		}
+
+		.card__name h3 {
+			font-size: 16px;
+			line-height: 19.2px;
+		}
+
+		.card__name span {
+			font-family: "Helvetica Neue";
+			font-weight: 700;
+		}
+
+		.card__address {
+			position: absolute;
+			top: 25px;
+			left: 0;
+			width: 209px;
+			white-space: pre;
+			font-size: 14px;
+			line-height: 18.2px;
+		}
+
+		.card__address a {
+			font-family: "Helvetica Neue";
+			color: #606060;
+			text-decoration: underline;
+			pointer-events: auto;
+		}
+
+		/* Dental Plaza Premium — чуть другие размеры текстового блока */
+		.card--premium .card__details {
+			width: 167px;
+			height: 45px;
+		}
+
+		.card--premium .card__name {
+			right: auto;
+			width: 167px;
+			height: auto;
+			white-space: pre;
+			word-break: normal;
+			overflow-wrap: normal;
+		}
+
+		.card--premium .card__address {
+			top: 26px;
+			width: 165px;
+		}
+	</style>
+</head>
+<body>
+	<main class="stage">
+		<div class="page">
+
+			<img class="page__bg"
+				src="./assets/150794ca.png"
+				srcset="./assets/6bb445d0.png 555w, ./assets/150794ca.png 780w"
+				sizes="390px"
+				alt="">
+
+			<!-- Имя, описание, кнопки -->
+			<header class="intro">
+				<div class="intro__text">
+					<h1 class="username"><span>afzal.asemov</span></h1>
+					<p class="bio"><span>БЛОГЕР | СТОМАТОЛОГ | АЛМАТЫ</span></p>
+				</div>
+
+				<a class="btn btn--partner" href="https://wa.me/7760549090" target="_blank" rel="noopener">
+					<p><span>Серіктестік үшін</span></p>
+				</a>
+
+				<a class="btn btn--consult" href="https://wa.me/77077377090" target="_blank" rel="noopener">
+					<p><span>Консультацияға жазылу</span></p>
+				</a>
+			</header>
+
+			<!-- Hero -->
+			<video class="hero-video" src="./assets/hero-optimized.mp4" autoplay loop muted playsinline preload="auto"></video>
+			<div class="hero-fade"></div>
+
+			<div class="avatar">
+				<img src="./assets/2e9be868.png" width="480" height="480" alt="afzal.asemov">
+			</div>
+
+			<svg class="badge" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+				<g clip-path="url(#badge-clip-outer)">
+					<path d="M12.119 3.73299C13.692 2.09999 16.308 2.09999 17.881 3.73299C18.203 4.06699 18.513 4.38899 18.787 4.67299C19.451 5.36299 20.34 5.79099 21.294 5.88099C21.687 5.91699 22.131 5.95899 22.593 6.00199C24.851 6.21399 26.482 8.25899 26.186 10.508C26.125 10.967 26.067 11.41 26.015 11.801C25.89 12.751 26.11 13.713 26.635 14.514C26.851 14.845 27.095 15.218 27.349 15.606C28.591 17.504 28.009 20.053 26.067 21.224C25.67 21.463 25.287 21.694 24.949 21.898C24.129 22.392 23.514 23.163 23.215 24.073C23.091 24.448 22.951 24.872 22.807 25.312C22.098 27.467 19.741 28.602 17.615 27.813C17.18 27.651 16.761 27.496 16.391 27.359C15.493 27.026 14.507 27.026 13.609 27.359C13.239 27.496 12.82 27.651 12.385 27.813C10.259 28.602 7.90299 27.467 7.19399 25.313C7.04899 24.872 6.90899 24.448 6.78499 24.073C6.48599 23.163 5.87099 22.392 5.05099 21.898C4.71199 21.694 4.32899 21.463 3.93199 21.223C1.98999 20.053 1.40799 17.504 2.64999 15.607C2.90399 15.219 3.14899 14.845 3.36499 14.514C3.88999 13.713 4.10999 12.751 3.98499 11.801C3.93299 11.41 3.87499 10.967 3.81399 10.507C3.51799 8.25899 5.14899 6.21399 7.40599 6.00299C7.86799 5.95899 8.31299 5.91799 8.70599 5.88099C9.65999 5.79099 10.549 5.36299 11.214 4.67299C11.488 4.38899 11.797 4.06699 12.119 3.73299Z" fill="#0098FD" stroke="#F4F2F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					<g clip-path="url(#badge-clip-check)">
+						<path d="M12.1339 14.8661C11.6457 14.378 10.8543 14.378 10.3661 14.8661C9.87796 15.3543 9.87796 16.1457 10.3661 16.6339L12.8661 19.1339C13.3543 19.622 14.1457 19.622 14.6339 19.1339L19.6339 14.1339C20.122 13.6457 20.122 12.8543 19.6339 12.3661C19.1457 11.878 18.3543 11.878 17.8661 12.3661L13.75 16.4822L12.1339 14.8661Z" fill="white"/>
+					</g>
+				</g>
+				<defs>
+					<clipPath id="badge-clip-outer"><rect width="30" height="30" fill="white"/></clipPath>
+					<clipPath id="badge-clip-check"><rect width="20" height="20" fill="white" transform="translate(5 5)"/></clipPath>
+				</defs>
+			</svg>
+
+			<!-- Сеть стоматологий -->
+			<section class="clinics">
+				<div class="clinics__head">
+					<h2 class="clinics__title"><span>СЕТЬ СТОМОТОЛОГИИ</span></h2>
+				</div>
+
+				<div class="locations">
+
+					<article class="card">
+						<img class="card__map"
+							src="./assets/00c1ff1e.png"
+							srcset="./assets/c1dd7190.png 512w, ./assets/7cd5aeb9.png 1024w, ./assets/00c1ff1e.png 1360w"
+							sizes="340px" width="1360" height="620" alt="Карта: Dental Plaza">
+						<a class="card__link" href="https://go.2gis.com/nNe7D" target="_blank" rel="noopener" aria-label="Dental Plaza"></a>
+						<div class="card__info">
+							<div class="card__details">
+								<div class="card__name"><h3><span>Dental Plaza</span></h3></div>
+								<p class="card__address"><a href="https://2gis.kz/almaty/geo/70030076598422500" target="_blank" rel="noopener">Улица Каныша Сатпаева,&nbsp;133/7</a></p>
+							</div>
+						</div>
+					</article>
+
+					<article class="card">
+						<img class="card__map"
+							src="./assets/00dc486e.png"
+							srcset="./assets/74237900.png 512w, ./assets/1b522ea9.png 1024w, ./assets/00dc486e.png 1360w"
+							sizes="340px" width="1360" height="620" alt="Карта: Dental Plaza">
+						<a class="card__link" href="https://go.2gis.com/FVtB1" target="_blank" rel="noopener" aria-label="Dental Plaza"></a>
+						<div class="card__info">
+							<div class="card__details">
+								<div class="card__name"><h3><span>Dental Plaza</span></h3></div>
+								<p class="card__address"><a href="https://2gis.kz/almaty/geo/70030076194717574" target="_blank" rel="noopener">Улица Каныша Сатпаева,&nbsp;133/3</a></p>
+							</div>
+						</div>
+					</article>
+
+					<article class="card card--premium">
+						<img class="card__map"
+							src="./assets/af2e8a45.png"
+							srcset="./assets/45985f03.png 512w, ./assets/58dc4cf8.png 1024w, ./assets/af2e8a45.png 1360w"
+							sizes="340px" width="1360" height="620" loading="lazy" alt="Карта: Dental Plaza Premium">
+						<a class="card__link" href="https://go.2gis.com/h8aHS" target="_blank" rel="noopener" aria-label="Dental Plaza Premium"></a>
+						<div class="card__info">
+							<div class="card__details">
+								<div class="card__name"><h3><span>Dental Plaza Premium</span></h3></div>
+								<p class="card__address"><a href="https://2gis.kz/almaty/geo/70030076192009219" target="_blank" rel="noopener">Улица Розыбакиева,&nbsp;320</a></p>
+							</div>
+						</div>
+					</article>
+
+				</div>
+			</section>
+
+		</div>
+	</main>
+
+	<script>
+		// Hero-видео играет с пониженной скоростью, как в оригинале
+		const video = document.querySelector(".hero-video");
+		video.defaultPlaybackRate = 0.75;
+		video.playbackRate = 0.75;
+		video.play().catch(() => {});
+	</script>
+</body>
+</html>
