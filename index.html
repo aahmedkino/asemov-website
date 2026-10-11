@@ -229,14 +229,26 @@
 			width: 389px;
 			height: 242px;
 			object-fit: cover;
+			pointer-events: none;
+		}
+
+		/* Прячем системную кнопку «воспроизвести» (iOS Safari, режим энергосбережения) */
+		.hero-video::-webkit-media-controls,
+		.hero-video::-webkit-media-controls-panel,
+		.hero-video::-webkit-media-controls-enclosure,
+		.hero-video::-webkit-media-controls-overlay-play-button,
+		.hero-video::-webkit-media-controls-start-playback-button {
+			display: none !important;
+			opacity: 0 !important;
+			-webkit-appearance: none;
 		}
 
 		.hero-fade {
 			position: absolute;
-			top: 71px;
+			top: 73px;
 			left: 0;
 			right: 0;
-			height: 169px;
+			height: 171px;
 			background: linear-gradient(#fff0 0%, #f4f2f0 100%);
 		}
 
@@ -460,17 +472,17 @@
 					<p class="bio"><span>БЛОГЕР | СТОМАТОЛОГ | АЛМАТЫ</span></p>
 				</div>
 
-				<a class="btn btn--partner" href="https://wa.me/7760549090" target="_blank" rel="noopener">
+				<a class="btn btn--partner" href="https://wa.me/77077377090" target="_blank" rel="noopener">
 					<p><span>Серіктестік үшін</span></p>
 				</a>
 
-				<a class="btn btn--consult" href="https://wa.me/77077377090" target="_blank" rel="noopener">
+				<a class="btn btn--consult" href="https://wa.me/7760549090" target="_blank" rel="noopener">
 					<p><span>Консультацияға жазылу</span></p>
 				</a>
 			</header>
 
 			<!-- Hero -->
-			<video class="hero-video" src="./assets/hero-optimized.mp4" autoplay loop muted playsinline preload="auto"></video>
+			<video class="hero-video" src="./assets/hero-optimized.mp4" autoplay loop muted playsinline preload="auto" disablepictureinpicture disableremoteplayback></video>
 			<div class="hero-fade"></div>
 
 			<div class="avatar">
@@ -547,11 +559,28 @@
 	</main>
 
 	<script>
-		// Hero-видео играет с пониженной скоростью, как в оригинале
+		// Hero-видео: автозапуск без звука, зацикленно, как GIF. Скорость 0.8
 		const video = document.querySelector(".hero-video");
-		video.defaultPlaybackRate = 0.75;
-		video.playbackRate = 0.75;
-		video.play().catch(() => {});
+		const SPEED = 0.8;
+
+		function startVideo() {
+			video.muted = true;
+			video.defaultPlaybackRate = SPEED;
+			video.playbackRate = SPEED;
+			video.play().catch(() => {});
+		}
+
+		startVideo();
+		video.addEventListener("loadedmetadata", startVideo);
+		video.addEventListener("canplay", startVideo);
+		document.addEventListener("visibilitychange", () => {
+			if (!document.hidden) startVideo();
+		});
+		// Если браузер (например, режим энергосбережения) заблокировал автозапуск —
+		// видео стартует при первом касании или клике
+		["touchstart", "click", "scroll"].forEach((type) =>
+			document.addEventListener(type, startVideo, { once: true, passive: true })
+		);
 	</script>
 </body>
 </html>
