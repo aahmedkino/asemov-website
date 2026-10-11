@@ -17,7 +17,7 @@
 	<link rel="icon" type="image/png" sizes="64x64" href="./assets/favicon-64.png?v=3">
 	<link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png?v=2">
 
-	<link rel="preload" href="./assets/hero-optimized.mp4" as="video" type="video/mp4">
+	<link rel="preload" href="./assets/hero.webp" as="image" type="image/webp">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -221,7 +221,7 @@
 
 		/* ---------- Hero-видео, градиент, аватар ---------- */
 
-		.hero-video {
+		.hero-media {
 			position: absolute;
 			top: -2px;
 			left: 0;
@@ -230,17 +230,6 @@
 			height: 242px;
 			object-fit: cover;
 			pointer-events: none;
-		}
-
-		/* Прячем системную кнопку «воспроизвести» (iOS Safari, режим энергосбережения) */
-		.hero-video::-webkit-media-controls,
-		.hero-video::-webkit-media-controls-panel,
-		.hero-video::-webkit-media-controls-enclosure,
-		.hero-video::-webkit-media-controls-overlay-play-button,
-		.hero-video::-webkit-media-controls-start-playback-button {
-			display: none !important;
-			opacity: 0 !important;
-			-webkit-appearance: none;
 		}
 
 		.hero-fade {
@@ -472,17 +461,17 @@
 					<p class="bio"><span>БЛОГЕР | СТОМАТОЛОГ | АЛМАТЫ</span></p>
 				</div>
 
-				<a class="btn btn--partner" href="https://wa.me/77077377090" target="_blank" rel="noopener">
+				<a class="btn btn--partner" href="https://wa.me/7760549090" target="_blank" rel="noopener">
 					<p><span>Серіктестік үшін</span></p>
 				</a>
 
-				<a class="btn btn--consult" href="https://wa.me/7760549090" target="_blank" rel="noopener">
+				<a class="btn btn--consult" href="https://wa.me/77077377090" target="_blank" rel="noopener">
 					<p><span>Консультацияға жазылу</span></p>
 				</a>
 			</header>
 
 			<!-- Hero -->
-			<video class="hero-video" src="./assets/hero-optimized.mp4" autoplay loop muted playsinline preload="auto" disablepictureinpicture disableremoteplayback></video>
+			<img class="hero-media" src="./assets/hero.webp" width="778" height="484" alt="">
 			<div class="hero-fade"></div>
 
 			<div class="avatar">
@@ -558,29 +547,5 @@
 		</div>
 	</main>
 
-	<script>
-		// Hero-видео: автозапуск без звука, зацикленно, как GIF. Скорость 0.8
-		const video = document.querySelector(".hero-video");
-		const SPEED = 0.8;
-
-		function startVideo() {
-			video.muted = true;
-			video.defaultPlaybackRate = SPEED;
-			video.playbackRate = SPEED;
-			video.play().catch(() => {});
-		}
-
-		startVideo();
-		video.addEventListener("loadedmetadata", startVideo);
-		video.addEventListener("canplay", startVideo);
-		document.addEventListener("visibilitychange", () => {
-			if (!document.hidden) startVideo();
-		});
-		// Если браузер (например, режим энергосбережения) заблокировал автозапуск —
-		// видео стартует при первом касании или клике
-		["touchstart", "click", "scroll"].forEach((type) =>
-			document.addEventListener(type, startVideo, { once: true, passive: true })
-		);
-	</script>
 </body>
 </html>
